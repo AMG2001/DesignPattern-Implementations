@@ -1,10 +1,27 @@
 package tech.amg.behavioral.strategy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PaymentService {
 
-    public void processPayment(String paymentWay){
-        if(paymentWay.equals("credit card")) System.out.println("Process with credit card");
-        else if(paymentWay.equals("debit card")) System.out.println("Process with debit card");
-        else if(paymentWay.equals("paypal")) System.out.println("Process with paypal");
+    private List<PaymentWay> paymentWays = new ArrayList<>();
+
+    public PaymentService() {
+        initializePaymentWays();
+    }
+
+    private void initializePaymentWays() {
+        paymentWays.addAll(List.of(
+                new CreditCardPayment(),
+                new DebitCardPayment(),
+                new PaypalPayment()
+        ));
+    }
+
+    public void processPayment(String paymentWay) {
+        for (PaymentWay paymentWayImplementation : paymentWays) {
+            if (paymentWayImplementation.canHandle(paymentWay)) paymentWayImplementation.processPayment();
+        }
     }
 }
