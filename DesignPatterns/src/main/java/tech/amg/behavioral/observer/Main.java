@@ -5,8 +5,8 @@ public class Main {
         MobileDevice mobileDevice = new MobileDevice();
         AndroidScreen androidScreen = new AndroidScreen();
         WeatherStation weatherStation = new WeatherStation();
-        weatherStation.addObserver(mobileDevice);
-        weatherStation.addObserver(androidScreen);
+        weatherStation.attach(mobileDevice);
+        weatherStation.attach(androidScreen);
         weatherStation.updateDegreeValue(15);
     }
 }

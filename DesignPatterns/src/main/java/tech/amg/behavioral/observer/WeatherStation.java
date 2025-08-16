@@ -3,7 +3,7 @@ package tech.amg.behavioral.observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherStation {
+public class WeatherStation implements WeatherSubject {
     private int currentValues = 0;
 
     private List<WeatherObserver> observers = new ArrayList<>();
@@ -16,14 +16,17 @@ public class WeatherStation {
         this.currentValues = currentValues;
     }
 
-    public void addObserver(WeatherObserver newObserver){
+    @Override
+    public void attach(WeatherObserver newObserver) {
         observers.add(newObserver);
     }
 
-    public void removeObserver(WeatherObserver observer){
+    @Override
+    public void detach(WeatherObserver observer) {
         observers.remove(observer);
     }
 
+    @Override
     public void notifyObservers(){
         observers.stream().forEach(observer -> observer.update(getCurrentValues()));
     }
